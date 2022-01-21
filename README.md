@@ -140,7 +140,7 @@ Mac & Linux
 
 Add line
 
-`127.0.0.1    PATH.local`
+`127.0.0.1    URL.local`
 
 ### Running first command
 A docker-compose.yml and Makefile is provided inside `.dev/config`
@@ -180,6 +180,15 @@ $ make exec-magento CMD='index:reindex'
 $ make exec-magento CMD='regenerate:product:url'
 $ make exec-magento CMD='regenerate:category:url'
 ```
+
+## Run on the browser
+Frontend 
+
+`http://URL.local:3001/{store_view}` `http://URL.local:3001/it_it`
+
+Backoffice
+
+`http://URL.local/backoffice`
 
 ## Raccomandations/configurations (Backoffice Magento)
 Local email sending settings:

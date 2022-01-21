@@ -10,13 +10,13 @@ confirm:
 ## Open Chrome with disable-web-security
 open-chrome:
 ifeq ($(OS),Darwin)
-	"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "http://PATH.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
+	"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "http://URL.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
 	rm -rf tmp/*
 else ifeq ($(OS),Linux)
-	sudo -u $(CURRENT_USER) "/usr/bin/google-chrome-stable" "http://PATH.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
+	sudo -u $(CURRENT_USER) "/usr/bin/google-chrome-stable" "http://URL.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
 	rm -rf tmp/*
 else
-	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://PATH.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
+	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://URL.local:3001/it_it" --disable-web-security --user-data-dir=tmp/chromeTemp
 	rm -rf tmp/*
 endif
 
