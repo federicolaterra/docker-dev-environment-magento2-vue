@@ -1,0 +1,135 @@
+version: '3.5'
+services:
+  apache:
+    image: webdevops/php-apache-dev:7.3
+    user: root
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - WEB_ALIAS_DOMAIN=${WEB_ALIAS_DOMAIN}
+      - WEB_DOCUMENT_ROOT=${WEB_DOCUMENT_ROOT}
+      - PHP_MEMORY_LIMIT=2048M
+      - PHP_MAX_EXECUTION_TIME=18000
+      - PHP_POST_MAX_SIZE=500M
+      - PHP_UPLOAD_MAX_FILESIZE=1024M
+      - PHP_DEBUGGER=xdebug
+      - XDEBUG_REMOTE_AUTOSTART=1
+      - XDEBUG_REMOTE_CONNECT_BACK=0
+      - XDEBUG_PROFILER_ENABLE=1
+      - XDEBUG_PROFILER_ENABLE_TRIGGER=1000
+      - XDEBUG_REMOTE_HOST=host.docker.internal
+      - XDEBUG_REMOTE_PORT=9003
+      - XDEBUG_IDE_KEY=PHPSTORM # (use your preferred IDE)
+    volumes:
+      - ${APACHE_VOLUME}
+    depends_on:
+      - db
+      - redis
+      - mail
+    links:
+      - db
+    networks:
+      - DOCKER-network
+
+  db:
+    image: mariadb:10.4-focal
+    ports:
+      - 3300:3306
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ${DB_DUMP_VOLUME}
+
+    networks:
+      - DOCKER-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8888:80
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - DOCKER-network
+
+  redis:
+    image: redis:latest
+    expose:
+      - 6379
+    volumes:
+      - ${REDIS_DUMP_VOLUME}
+    networks:
+      - DOCKER-network
+
+  mail:
+    image: schickling/mailcatcher
+    ports:
+      - 1025:1025
+      - 1080:1080
+    networks:
+      - DOCKER-network
+
+  elasticsearch:
+    image: elasticsearch:7.12.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xmx1g -Xms1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - DOCKER-network
+
+  node:
+    build:
+      context: ../../tmp-vue
+      dockerfile: .dev/config/Dockerfile
+    #stdin_open: true
+    #tty: true
+    ports:
+      - 3001:8080
+    environment:
+      - NODE_ENV=local
+    volumes:
+      - ${NODE_VOLUME}
+      - ${NODE_MODULES_VOLUME}
+    networks:
+      - DOCKER-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq/mnesia
+
+volumes:
+  dbdata:
+    driver: local
+  elasticsearch:
+    driver: local
+  rabbitmq:
+    driver: local
+
+networks:
+  DOCKER-network:
+    driver: bridge

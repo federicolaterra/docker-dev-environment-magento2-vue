@@ -1,0 +1,16 @@
+/*
+ *   If you have this file or a custom devServer configuration in your project,
+ *   remember to set the "disableHostCheck" attribute to true in order not to
+ *   conflict with the Docker Node instance.
+*/
+
+module.exports = {
+  // devServer: {
+  //   // https: true,
+  //   port: process.env.VUE_APP_BASE_PORT,
+  //   host: process.env.VUE_APP_BASE_HOST
+  // }
+  devServer: {
+    disableHostCheck: true
+  }
+}
