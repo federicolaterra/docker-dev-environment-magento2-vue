@@ -4,6 +4,16 @@ The following repository does not install Magento and Vue.js but allows you to h
 
 *it is mandatory that magento is installed on a subdirectory and that vue.js also works on a subdirectory.
 
+## Instance list
+- apache
+- mariadb
+- phpmyadmin
+- redis
+- mailcatcher
+- rabbitmq
+- elasticsearch
+- node
+
 ## Before starting
 Make sure you have Make GNU and Docker installed on your system.  
 
@@ -30,7 +40,7 @@ $ scoop install make
 
 OR
 
-Via the package manager [Chocolatey]('https://chocolatey.org')
+Via the package manager [Chocolatey](https://chocolatey.org)
 
 First install chocolatey by execute:
 
@@ -46,7 +56,7 @@ $ choco install make
 
 **macOS**
 
-Via the package manager native [Homebrew]('https://brew.sh/index_it')
+Via the package manager native [Homebrew](https://brew.sh/index_it)
 
 ```
 $ brew install make
@@ -66,11 +76,11 @@ It is possible to install it from:
 
 **Windows**
 
-From the official website [Docker Desktop on Window]('https://docs.docker.com/desktop/windows/install')
+From the official website [Docker Desktop on Window](https://docs.docker.com/desktop/windows/install)
 
 **macOS**
 
-From official website [Docker Desktop on Mac]('https://docs.docker.com/desktop/mac/install')
+From official website [Docker Desktop on Mac](https://docs.docker.com/desktop/mac/install)
 
 **Linux**
 ```
@@ -296,11 +306,11 @@ Make sure you have this lines in the environment settings in the docker-compose 
 For macOs systems make sure you have the ***docker-compose.mac.override.yml***
 
 Useful links:
-- [Official site xDebug]('https://xdebug.org')
-- [Google Extension xDebug]('https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?hl=it')
-- [VS Code]('https://code.visualstudio.com/docs/languages/php')
-- [Atom]('https://atom.io/packages/php-debug')
-- [Eclipse]('https://wiki.eclipse.org/Debugging_using_XDebug')
+- [Official site xDebug](https://xdebug.org)
+- [Google Extension xDebug](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?hl=it)
+- [VS Code](https://code.visualstudio.com/docs/languages/php)
+- [Atom](https://atom.io/packages/php-debug)
+- [Eclipse](https://wiki.eclipse.org/Debugging_using_XDebug)
 
 ### ElasticSearch
 To view the data within the Elasticsearch instance, download the Google Chrome `ElasticSearch Head` extension.
